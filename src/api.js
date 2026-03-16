@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") ||
-  "http://127.0.0.1:5000";
+const API_BASE_URL = location.host === 'localhost' ?
+  "http://127.0.0.1:5000" : 'https://payment-getway-app.onrender.com'
 
 const API = axios.create({
   baseURL: API_BASE_URL,
