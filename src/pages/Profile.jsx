@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 import Toast from "../components/Toast";
 import "../styles/profile.css";
 
@@ -42,7 +42,7 @@ function Profile() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");
+      navigate("/");
       return;
     }
     fetchProfile();
@@ -161,7 +161,7 @@ function Profile() {
     logout();
     setToast({ message: "Logged out successfully", type: "success" });
     setTimeout(() => {
-      navigate("/login");
+      navigate("/");
     }, 1500);
   };
 

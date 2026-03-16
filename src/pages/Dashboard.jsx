@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 
 function Dashboard() {
-  const { user, token } = useAuth();
+  // const { user, token } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalTransactions: 0,
@@ -18,7 +18,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 
@@ -63,14 +63,16 @@ function Dashboard() {
     }
 
     loadStats();
-  }, [token, navigate]);
+  }, 
+  // [token, navigate]
+);
 
   return (
     <div className="page">
       <h2>📊 Dashboard & Analytics</h2>
 
       {/* Balance Card */}
-      {user && (
+      {/* {user && ( */}
         <div className="balance-section">
           <div className="dashboard-balance-card">
             <div className="balance-header">
@@ -82,7 +84,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
 
       {error && <div className="error">{error}</div>}
 

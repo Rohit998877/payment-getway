@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 import Toast from "../components/Toast";
 import "../styles/add-money.css";
 
@@ -17,7 +17,7 @@ function AddMoney() {
   });
 
   if (!token) {
-    navigate("/login");
+    navigate("/");
     return null;
   }
 

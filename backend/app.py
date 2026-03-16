@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000"])
+CORS(app, origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000","https://paymentappindia.netlify.app",
+    "https://69b7009ac7ca6e2b3e4cf3bf--paymentappindia.netlify.app"])
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-this")
 
