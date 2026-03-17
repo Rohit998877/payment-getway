@@ -505,7 +505,9 @@ textarea:focus {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
 }
 
 .stat-card h3 {
@@ -520,6 +522,50 @@ textarea:focus {
     color: #764ba2;
     font-size: 2rem;
     font-weight: bold;
+}
+
+.stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.stat-card-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: rgba(102, 126, 234, 0.12);
+    color: #667eea;
+}
+
+.stat-card-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.stat-description {
+    color: #999;
+    margin-top: 10px;
+}
+
+.stat-card-amount .stat-card-icon-wrap {
+    background: rgba(118, 75, 162, 0.12);
+    color: #764ba2;
+}
+
+.stat-card-transfers .stat-card-icon-wrap {
+    background: rgba(21, 101, 192, 0.12);
+    color: #1565c0;
+}
+
+.stat-card-recharges .stat-card-icon-wrap {
+    background: rgba(76, 175, 80, 0.14);
+    color: #2e7d32;
 }
 
 @media (max-width: 768px) {
@@ -566,6 +612,23 @@ textarea:focus {
     margin-bottom: 40px;
 }
 
+.dashboard-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dashboard-title-row h2 {
+    margin-bottom: 0;
+}
+
+.dashboard-title-icon {
+    width: 26px;
+    height: 26px;
+    color: white;
+    flex-shrink: 0;
+}
+
 .dashboard-balance-card {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
@@ -577,6 +640,29 @@ textarea:focus {
     align-items: center;
     gap: 20px;
     transition: all 0.3s ease;
+}
+
+.balance-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.balance-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.balance-card-icon {
+    width: 28px;
+    height: 28px;
 }
 
 .dashboard-balance-card:hover {
@@ -607,6 +693,66 @@ textarea:focus {
     white-space: nowrap;
 }
 
+.dashboard-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.dashboard-section-title h3 {
+    margin: 0;
+    color: inherit;
+}
+
+.dashboard-section-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.recent-transaction-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.recent-transaction-details {
+    min-width: 0;
+}
+
+.recent-transaction-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.recent-transaction-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.recent-transaction-type-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.recent-transaction-amount {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #667eea;
+    text-align: right;
+}
+
 @media (max-width: 768px) {
     .dashboard-balance-card {
         padding: 25px;
@@ -617,6 +763,21 @@ textarea:focus {
 
     .balance-display {
         font-size: 2.5rem;
+    }
+
+    .balance-card-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .recent-transaction-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recent-transaction-amount {
+        width: 100%;
+        text-align: left;
     }
 }
 
@@ -636,6 +797,21 @@ textarea:focus {
 
     .balance-display {
         font-size: 2rem;
+    }
+
+    .dashboard-title-row {
+        gap: 10px;
+    }
+
+    .dashboard-title-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .balance-icon-badge {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
     }
 }
 

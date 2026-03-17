@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api";
 import { useAuth } from "../hooks/useAuth";
+import Icon from "../components/Icon";
 import { formatCurrency, formatDate } from "../utils/formatters";
 
 function Dashboard() {
@@ -16,6 +17,41 @@ function Dashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const statCards = [
+    {
+      key: "transactions",
+      title: "Total Transactions",
+      value: stats.totalTransactions,
+      description: "Total count",
+      icon: "history",
+      variant: "transactions",
+    },
+    {
+      key: "amount",
+      title: "Total Amount",
+      value: formatCurrency(stats.totalAmount),
+      description: "All transactions",
+      icon: "coins",
+      variant: "amount",
+    },
+    {
+      key: "transfers",
+      title: "Money Transfers",
+      value: stats.totalTransfers,
+      description: formatCurrency(stats.transferAmount),
+      icon: "send",
+      variant: "transfers",
+    },
+    {
+      key: "recharges",
+      title: "Mobile Recharges",
+      value: stats.totalRecharges,
+      description: formatCurrency(stats.rechargeAmount),
+      icon: "bolt",
+      variant: "recharges",
+    },
+  ];
 
   useEffect(() => {
     let isActive = true;
@@ -75,13 +111,21 @@ function Dashboard() {
 
   return (
     <div className="page">
-      <h2>Dashboard and Analytics</h2>
+      <div className="dashboard-title-row">
+        <Icon name="dashboard" className="dashboard-title-icon" />
+        <h2>Dashboard and Analytics</h2>
+      </div>
 
       <div className="balance-section">
         <div className="dashboard-balance-card">
-          <div className="balance-header">
-            <h3>Account Balance</h3>
-            <p className="balance-subtext">Current wallet balance</p>
+          <div className="balance-card-content">
+            <div className="balance-icon-badge">
+              <Icon name="card" className="balance-card-icon" />
+            </div>
+            <div className="balance-header">
+              <h3>Account Balance</h3>
+              <p className="balance-subtext">Current wallet balance</p>
+            </div>
           </div>
           <div className="balance-display">
             {formatCurrency(user?.balance || 0)}
@@ -95,43 +139,30 @@ function Dashboard() {
       {!loading && (
         <>
           <div className="dashboard-stats">
-            <div className="stat-card">
-              <h3>Total Transactions</h3>
-              <div className="stat-value">{stats.totalTransactions}</div>
-              <p style={{ color: "#999", marginTop: "10px" }}>Total count</p>
-            </div>
-
-            <div className="stat-card">
-              <h3>Total Amount</h3>
-              <div className="stat-value">
-                {formatCurrency(stats.totalAmount)}
+            {statCards.map((card) => (
+              <div
+                key={card.key}
+                className={`stat-card stat-card-${card.variant}`}
+              >
+                <div className="stat-card-header">
+                  <div>
+                    <h3>{card.title}</h3>
+                  </div>
+                  <span className="stat-card-icon-wrap">
+                    <Icon name={card.icon} className="stat-card-icon" />
+                  </span>
+                </div>
+                <div className="stat-value">{card.value}</div>
+                <p className="stat-description">{card.description}</p>
               </div>
-              <p style={{ color: "#999", marginTop: "10px" }}>
-                All transactions
-              </p>
-            </div>
-
-            <div className="stat-card">
-              <h3>Money Transfers</h3>
-              <div className="stat-value">{stats.totalTransfers}</div>
-              <p style={{ color: "#999", marginTop: "10px" }}>
-                {formatCurrency(stats.transferAmount)}
-              </p>
-            </div>
-
-            <div className="stat-card">
-              <h3>Mobile Recharges</h3>
-              <div className="stat-value">{stats.totalRecharges}</div>
-              <p style={{ color: "#999", marginTop: "10px" }}>
-                {formatCurrency(stats.rechargeAmount)}
-              </p>
-            </div>
+            ))}
           </div>
 
           <div style={{ maxWidth: "800px", margin: "40px auto" }}>
-            <h3 style={{ color: "white", marginBottom: "20px" }}>
-              Recent Transactions
-            </h3>
+            <div className="dashboard-section-title">
+              <Icon name="history" className="dashboard-section-icon" />
+              <h3>Recent Transactions</h3>
+            </div>
 
             {stats.recentTransactions.length === 0 ? (
               <p style={{ textAlign: "center", color: "white" }}>
@@ -145,19 +176,26 @@ function Dashboard() {
                     className="transaction-card"
                   >
                     <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: "16px",
-                      }}
+                      className="recent-transaction-row"
                     >
-                      <div>
-                        <span
-                          className={`transaction-badge ${transaction.type === "Recharge" ? "badge-recharge" : "badge-send"}`}
-                        >
-                          {transaction.type}
-                        </span>
+                      <div className="recent-transaction-details">
+                        <div className="recent-transaction-label">
+                          <span className="recent-transaction-icon">
+                            <Icon
+                              name={
+                                transaction.type === "Recharge"
+                                  ? "recharge"
+                                  : "send"
+                              }
+                              className="recent-transaction-type-icon"
+                            />
+                          </span>
+                          <span
+                            className={`transaction-badge ${transaction.type === "Recharge" ? "badge-recharge" : "badge-send"}`}
+                          >
+                            {transaction.type}
+                          </span>
+                        </div>
                         <p style={{ marginTop: "10px", color: "#666" }}>
                           Mobile: <b>{transaction.mobile}</b>
                         </p>
@@ -165,14 +203,7 @@ function Dashboard() {
                           Paid via <b>{transaction.payment_method || "Wallet"}</b>
                         </p>
                       </div>
-                      <div
-                        style={{
-                          fontSize: "1.2rem",
-                          fontWeight: "bold",
-                          color: "#667eea",
-                          textAlign: "right",
-                        }}
-                      >
+                      <div className="recent-transaction-amount">
                         <div>{formatCurrency(transaction.amount)}</div>
                         <div style={{ fontSize: "0.9rem", color: "#999" }}>
                           {formatDate(transaction.created_at)}
